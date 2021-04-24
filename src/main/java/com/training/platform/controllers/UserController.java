@@ -12,6 +12,7 @@ import java.util.Optional;
 import com.training.platform.entities.User;
 import com.training.platform.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,13 +22,20 @@ import java.util.List;
 
 
 
-@RestController
-@RequestMapping("/demo")
+//@RestController
+//@RequestMapping("/demo")
 
 public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @GetMapping(value="/create")
+    public String create(Model model, User user) {
+        model.addAttribute("cities", userService.getCities());
+        model.addAttribute("user", user);
+        return "admin/user/create";
+    }
 
     //CREATE method new 2 method
     @GetMapping(value = "")
